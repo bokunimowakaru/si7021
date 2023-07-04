@@ -16,7 +16,7 @@ SILICON LABS社 Si7021
 
 void setup(){
 	Serial.begin(115200);
-	Serial.print("Hello!");
+	Serial.println("Hello!");
 	pinMode(27,OUTPUT);
 	digitalWrite(27,LOW);
 	pinMode(26,OUTPUT);
