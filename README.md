@@ -26,7 +26,7 @@ Si7021 用 I2Cデータ通信サンプルプログラム by bokunimo.net
 
 	Hello!  
 	Done: i2c_si7021_Setup  
-	ID = 0x15003fff, Si7021  
+	ID = 0x15XXXXff, Si7021  
 	Done: Read Electronic ID  
 	VER = 0x20, Firmware version 2.0  
 	Done: Read Firmware Revision  
@@ -44,3 +44,14 @@ Si7021 用 I2Cデータ通信サンプルプログラム by bokunimo.net
 	ERROR: i2c_si7021_getTemp() Wire.write hum  
 	ERROR: i2c_si7021_getTemp() Wire.write hum  
 	-999.0, -999.0  
+
+## 不具合事例
+
+        Hello!
+        Done: i2c_si7021_Setup
+        ID = 0x32XXXXff, Unknown
+        Done: Read Electronic ID
+        Done: Read Firmware Revision
+        ERROR: i2c_si7021_getTemp() Wire.write temp
+        ERROR: i2c_si7021_getTemp() Wire.write temp
+-999.0, -999.0
