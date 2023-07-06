@@ -48,7 +48,7 @@ Si7021 用 I2Cデータ通信サンプルプログラム by bokunimo.net
 ## 不具合事例
 
         Hello!
-        Done: i2c_si7021_Setup
+	Done: i2c_si7021_Setup
         ID = 0x32XXXXff, Unknown
         Done: Read Electronic ID
         Done: Read Firmware Revision
