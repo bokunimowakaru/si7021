@@ -52,6 +52,6 @@ Si7021 用 I2Cデータ通信サンプルプログラム by bokunimo.net
         ID = 0x32XXXXff, Unknown
         Done: Read Electronic ID
         Done: Read Firmware Revision
+	ERROR: i2c_si7021_getTemp() Wire.write temp
         ERROR: i2c_si7021_getTemp() Wire.write temp
-        ERROR: i2c_si7021_getTemp() Wire.write temp
--999.0, -999.0
+	-999.0, -999.0
