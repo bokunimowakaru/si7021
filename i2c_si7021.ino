@@ -18,6 +18,8 @@ https://www.silabs.com/documents/public/data-sheets/Si7021-A20.pdf
 volatile float _i2c_si7021_hum = -999;
 volatile float _i2c_si7021_temp = -999;
 
+int _i2c_si7021_mode = 7021;	// 7013, 7020, 7021, HTU21=-21
+
 float i2c_si7021_getTemp(){
 	int temp,hum,i;
 	if( _i2c_si7021_temp >= -100 ){
@@ -45,27 +47,45 @@ float i2c_si7021_getTemp(){
 	hum = Wire.read();
 	hum <<= 8;
 	hum += Wire.read();
+	_i2c_si7021_hum = (float)hum / 65536. * 125. - 6.;
 	
 	delay(18);					// 15ms以上
-	Wire.beginTransmission(I2C_si7021);
-	Wire.write(0xE0);
-	if(Wire.endTransmission()){
-		Serial.println("ERROR: i2c_si7021_getTemp() Wire.write temp");
-		return -999.;
-	}
-	
-	delay(30);					// 15ms以上
-	Wire.requestFrom(I2C_si7021,2);
-	i = Wire.available();
-	if(i<2){
-		Serial.printf("ERROR: i2c_si7021_getTemp() Wire.requestFrom temp, i=%d\n",i);
-		return -999.;
+
+	if(_i2c_si7021_mode >= 0){
+		Wire.beginTransmission(I2C_si7021);
+		Wire.write(0xE0);
+		if(Wire.endTransmission()){
+			Serial.println("ERROR: i2c_si7021_getTemp() Wire.write temp");
+			return -999.;
+		}
+		
+		delay(30);					// 15ms以上
+		Wire.requestFrom(I2C_si7021,2);
+		i = Wire.available();
+		if(i<2){
+			Serial.printf("ERROR: i2c_si7021_getTemp() Wire.requestFrom temp, i=%d\n",i);
+			return -999.;
+		}
+	}else{
+		Wire.beginTransmission(I2C_si7021);
+		Wire.write(0xE3);
+		if(Wire.endTransmission()){
+			Serial.println("ERROR: i2c_si7021_getTemp() Wire.write for HTU21 temp ");
+			return -999.;
+		}
+		
+		delay(30);					// 15ms以上
+		Wire.requestFrom(I2C_si7021,2);
+		i = Wire.available();
+		if(i<2){
+			Serial.printf("ERROR: i2c_si7021_getTemp() Wire.requestFrom for HTU21 temp, i=%d\n",i);
+			return -999.;
+		}
 	}
 	temp = Wire.read();
 	temp <<= 8;
 	temp += Wire.read();
 
-	_i2c_si7021_hum = (float)hum / 65536. * 125. - 6.;
 	return (float)temp / 65535. * 175.72 - 46.85;
 }
 
@@ -77,14 +97,86 @@ float i2c_si7021_getHum(){
 	return ret;
 }
 
+
+float i2c_si7021_heater(){
+	float ma;
+	uint8_t user = 0;
+	
+	// Read RH/T User Register 1 (0xE7)
+	Wire.beginTransmission(I2C_si7021);
+	Wire.write(0xE7);
+	Wire.endTransmission();
+	delay(18);					// 15ms以上
+	Wire.requestFrom(I2C_si7021,1);
+	if(Wire.available()>=1){
+		user = Wire.read();
+		Serial.printf("User Reg = 0x%02x\n",user);
+	}
+	delay(18);					// 15ms以上
+	Serial.println("Done: Read User Reg");
+	if((user & 0x04) == 0){
+		Serial.println("Heater = OFF");
+		return 0.0;
+	}
+	
+	// Read Heater Control Register (0x11)
+	Wire.beginTransmission(I2C_si7021);
+	Wire.write(0x11);
+	Wire.endTransmission();
+	delay(18);					// 15ms以上
+	Wire.requestFrom(I2C_si7021,1);
+	if(Wire.available()>=1){
+		uint8_t heater = Wire.read();
+		ma = (float)heater * (94.20 - 3.09) / 15 + 3.09;
+		Serial.printf("Heater = 0x%02x, %.1f mA\n",heater,ma);
+	}
+	delay(18);					// 15ms以上
+	Serial.println("Done: Heater Control Register");
+	return ma;
+}
+
+float i2c_si7021_heater(int current){
+	boolean ret;
+	if(current>16) current = 16;
+	if(current<0) current = 0;
+	
+	if(current > 0){
+		Wire.beginTransmission(I2C_si7021);
+		Wire.write(0x51);
+		Wire.write((byte)(current - 1));
+		ret = (Wire.endTransmission() == 0);
+		if(!ret) Serial.println("ERROR: i2c_si7021_heater Wire.endTransmission");
+		Serial.println("Done: i2c_si7021_heater");
+		delay(18);					// 15ms以上
+	}
+	
+	Wire.beginTransmission(I2C_si7021);
+	Wire.write(0xE6);
+	if(current > 0){
+		Wire.write(0x3E);	// d2 HTRE=1
+	}else{
+		Wire.write(0x3A);	// d2 HTRE=0
+	}
+	ret = (Wire.endTransmission() == 0);
+	if(!ret){
+		Serial.println("ERROR: i2c_si7021_Setup Wire.endTransmission");
+		return 0.0;
+	}
+	Serial.println("Done: i2c_si7021_Setup");
+	delay(18);					// 15ms以上
+	return i2c_si7021_heater();
+}
+
 boolean i2c_si7021_Setup(int PIN_SDA = 21, int PIN_SCL = 22);
 
 boolean i2c_si7021_Setup(int PIN_SDA, int PIN_SCL){
 	delay(2);					// 1ms以上
 	boolean ret = Wire.begin(PIN_SDA,PIN_SCL); // I2Cインタフェースの使用を開始
 	if(!ret) Serial.println("ERROR: i2c_si7021_Setup Wire.begin");
-	delay(18);					// 15ms以上
+	delay(35);					// 15ms以上
 	if(ret){
+		i2c_si7021_heater();
+		
 		Wire.beginTransmission(I2C_si7021);
 		Wire.write(0xE6);
 		Wire.write(0x3A);
@@ -93,30 +185,65 @@ boolean i2c_si7021_Setup(int PIN_SDA, int PIN_SCL){
 		Serial.println("Done: i2c_si7021_Setup");
 		delay(18);					// 15ms以上
 		
+		// Read Electronic ID 1st Byte (0xFA 0x0F)
+		Wire.beginTransmission(I2C_si7021);
+		Wire.write(0xFA);
+		Wire.write(0x0F);
+		Wire.endTransmission();
+		delay(18);					// 15ms以上
+		Wire.requestFrom(I2C_si7021,8);
+		if(Wire.available()>=8){
+			uint32_t id = Wire.read();
+			id <<= 8;
+			Wire.read(); // CRC 読み捨て
+			id += Wire.read();
+			id <<= 8;
+			Wire.read(); // CRC 読み捨て
+			id += Wire.read();
+			id <<= 8;
+			Wire.read(); // CRC 読み捨て
+			id += Wire.read();
+			Wire.read(); // CRC 読み捨て
+			Serial.printf("ID1 = 0x%08x\n",id);
+		}
+		delay(18);					// 15ms以上
+		Serial.println("Done: Read Electronic ID");
+		
+		
 		// Read Electronic ID 2nd Byte (0xFC 0xC9)
 		Wire.beginTransmission(I2C_si7021);
 		Wire.write(0xFC);
 		Wire.write(0xC9);
 		Wire.endTransmission();
 		delay(18);					// 15ms以上
-		Wire.requestFrom(I2C_si7021,4);
-		if(Wire.available()>=4){
+		Wire.requestFrom(I2C_si7021,6);
+		if(Wire.available()>=6){
 			uint32_t id = Wire.read();
 			id <<= 8;
 			id += Wire.read();
 			id <<= 8;
-			id += Wire.read(); // CRC 読み捨て
+			Wire.read(); // CRC 読み捨て
 			id += Wire.read();
 			id <<= 8;
 			id += Wire.read();
-			Serial.printf("ID = 0x%08x, ",id);
+			Wire.read(); // CRC 読み捨て
+			Serial.printf("ID2 = 0x%08x, ",id);
 			// 0x0D=13=Si7013
 			// 0x14=20=Si7020
 			// 0x15=21=Si7021
-			if(id>>24 ==0x0D) Serial.println("Si7013");
-			else if(id>>24 ==0x14) Serial.println("Si7020");
-			else if(id>>24 ==0x15) Serial.println("Si7021");
-			else Serial.println("Unknown");
+			if(id>>24 ==0x0D){
+				Serial.println("Si7013");
+				_i2c_si7021_mode = 7013;
+			}else if(id>>24 ==0x14){
+				Serial.println("Si7020");
+				_i2c_si7021_mode = 7020;
+			}else if(id>>24 ==0x15){
+				 Serial.println("Si7021");
+				_i2c_si7021_mode = 7021;
+			}else if(id>>24 ==0x32){
+				 Serial.println("HTU21");
+				_i2c_si7021_mode = -21;
+			}else Serial.println("Unknown");
 		}
 		delay(18);					// 15ms以上
 		Serial.println("Done: Read Electronic ID");
