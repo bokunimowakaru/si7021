@@ -31,7 +31,8 @@ float i2c_si7021_getTemp(){
 	_i2c_si7021_hum=-999.;
 	_i2c_si7021_temp = -999;
 	Wire.beginTransmission(I2C_si7021);
-	Wire.write(0xF5);
+//	Wire.write(0xF5);	// Measure Relative Humidity, No Hold Master Mode
+	Wire.write(0xE5);	// Measure Relative Humidity, Hold Master Mode
 	if(Wire.endTransmission()){
 		Serial.println("ERROR: i2c_si7021_getTemp() Wire.write hum");
 		return -999.;
@@ -53,7 +54,7 @@ float i2c_si7021_getTemp(){
 
 	if(_i2c_si7021_mode >= 0){
 		Wire.beginTransmission(I2C_si7021);
-		Wire.write(0xE0);
+		Wire.write(0xE0);		// Read Temperature Value from Previous RH Measurement
 		if(Wire.endTransmission()){
 			Serial.println("ERROR: i2c_si7021_getTemp() Wire.write temp");
 			return -999.;
