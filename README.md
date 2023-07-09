@@ -119,8 +119,16 @@ HTU21Dの判定には ID2 の先頭1バイト 0x32 を使用しています。
 * IoT Sensor Core ESP32 by Wataru KUNINO：  
 [https://git.bokunimo.com/sens/](https://git.bokunimo.com/sens/)
 
+----------------------------------------------------------------
+
 ## GitHub Pages (This Document)
 
 * [https://git.bokunimo.com/si7021/](https://git.bokunimo.com/si7021/)
 
+----------------------------------------------------------------
+
+##  git.bokunimo.com GitHub Pages site
+[http://git.bokunimo.com/](http://git.bokunimo.com/)  
+
+----------------------------------------------------------------
 by <https://bokunimo.net>
