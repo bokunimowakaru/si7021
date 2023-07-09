@@ -4,6 +4,8 @@ Si7021 用 I2Cデータ通信サンプルプログラム by bokunimo.net
 
 ## Supported Devices 対応デバイス
 
+Sensors on GT-21 Modules:
+
 - Silicon Labs Si7020 (±4%)  
 - Silicon Labs Si7021 (±3%)  
 - Measurement Specialties HTU20D (±5%)  
@@ -22,6 +24,8 @@ Si7021 用 I2Cデータ通信サンプルプログラム by bokunimo.net
 
 |ピン名|役割      |
 |------|----------|
+|IO26  |Si7021_VIN|
+|IO27  |Si7021_GND|
 |IO14  |Si7021_SCL|
 |IO12  |Si7021_SDA|
 
@@ -96,3 +100,9 @@ Si7021 用 I2Cデータ通信サンプルプログラム by bokunimo.net
 	ERROR: i2c_si7021_getTemp() Wire.write hum
 	ERROR: i2c_si7021_getTemp() Wire.write hum
 	-999.0, -999.0, 0.0
+
+## GitHub Pages (This Document)
+
+* [https://git.bokunimo.com/si7021/](https://git.bokunimo.com/si7021/)
+
+by <https://bokunimo.net>
