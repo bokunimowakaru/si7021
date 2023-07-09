@@ -113,7 +113,7 @@ HTU21Dの判定には ID2 の先頭1バイト 0x32 を使用しています。
 * 温湿度センサ Si7021 と HTU21D の見分け方：  
 [https://bokunimo.net/blog/esp/3797/](https://bokunimo.net/blog/esp/3797/)  
 
-・How to distinguish Si7021 and HTU21D (Google Transrate):  
+* How to distinguish Si7021 and HTU21D (Google Transrate):  
 [https://bokunimo-net.translate.goog/blog/esp/3797/](https://bokunimo-net.translate.goog/blog/esp/3797/?_x_tr_sl=ja&_x_tr_tl=en&_x_tr_hl=ja&_x_tr_pto=wapp)  
 
 * IoT Sensor Core ESP32 by Wataru KUNINO：  
