@@ -1,10 +1,11 @@
 # esp32_si7021 for Si7020, Si7021 and HTU21D
 
-Si7021 用 I2Cデータ通信サンプルプログラム by bokunimo.net
+These programs provide the way to check the operation of Silicon Labs.'s humidity sensors Si7021.  
+Silicon Labs.製 温湿度センサ Si7021用 GPIO直結 I2Cデータ通信サンプルプログラム by bokunimo.net  
 
 ## Supported Devices 対応デバイス
 
-Sensors on GT-21 Modules:
+Supported the following sensors on such as GT-21 Modules:
 
 - Silicon Labs., Si7020 (±4%)  
 - Silicon Labs., Si7021 (±3%)  
@@ -86,6 +87,9 @@ Measurement Specialties (MEAS) 社は、センサー専業のメーカー。
 	32.1, 61.4, 0.0
 	32.0, 61.3, 0.0
 
+HTU21Dの判定には ID2 の先頭1バイト 0x32 を使用しています。
+その他の番号の場合は、Unknownと表示され、温度の取得に失敗する場合があります。
+
 ## 不具合事例(エラー時)
 
 	Hello!
@@ -107,7 +111,10 @@ Measurement Specialties (MEAS) 社は、センサー専業のメーカー。
 ## 関連情報
 
 * 温湿度センサ Si7021 と HTU21D の見分け方：  
-[https://bokunimo.net/blog/esp/3797/](https://bokunimo.net/blog/esp/3797/)
+[https://bokunimo.net/blog/esp/3797/](https://bokunimo.net/blog/esp/3797/)  
+
+・How to distinguish Si7021 and HTU21D (Google Transrate):  
+[https://bokunimo-net.translate.goog/blog/esp/3797/](https://bokunimo-net.translate.goog/blog/esp/3797/?_x_tr_sl=ja&_x_tr_tl=en&_x_tr_hl=ja&_x_tr_pto=wapp)  
 
 * IoT Sensor Core ESP32 by Wataru KUNINO：  
 [https://git.bokunimo.com/sens/](https://git.bokunimo.com/sens/)
