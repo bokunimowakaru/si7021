@@ -99,12 +99,10 @@ float i2c_si7021_getHum(){
 	return ret;
 }
 
-boolean i2c_si7021_Setup(int PIN_SDA = 21, int PIN_SCL = 22);
-
-boolean i2c_si7021_Setup(int PIN_SDA, int PIN_SCL){
+boolean i2c_si7021_Setup(){
 	delay(2);					// 1ms以上
-	boolean ret = Wire.begin(PIN_SDA,PIN_SCL); // I2Cインタフェースの使用を開始
-	if(!ret) Serial.println("ERROR: i2c_si7021_Setup Wire.begin");
+	boolean ret = 1;
+	Wire.begin(); // I2Cインタフェースの使用を開始
 	delay(35);					// 15ms以上
 	if(ret){
 		Wire.beginTransmission(I2C_si7021);

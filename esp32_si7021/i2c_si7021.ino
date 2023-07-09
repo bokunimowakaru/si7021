@@ -21,7 +21,8 @@ volatile float _i2c_si7021_temp = -999;
 int _i2c_si7021_mode = 7021;	// 7013, 7020, 7021, HTU21=-21
 
 float i2c_si7021_getTemp(){
-	int temp,hum,i;
+	uint16_t temp,hum;
+	int i;
 	if( _i2c_si7021_temp >= -100 ){
 		float ret;
 		ret = _i2c_si7021_temp;

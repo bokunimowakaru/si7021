@@ -15,7 +15,7 @@ void setup(){
 	digitalWrite(27,LOW);
 	pinMode(26,OUTPUT);
 	digitalWrite(26,HIGH);
-	i2c_si7021_Setup(12, 14);
+	i2c_si7021_Setup();
 	Serial.println("temp., humid.");
 }
 

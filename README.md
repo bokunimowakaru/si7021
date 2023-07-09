@@ -1,11 +1,11 @@
-# esp32_si7021 for Si7020, Si7021 and HTU21D
+# si7021 drivers for Si7020, Si7021 and HTU21D
 
 These programs provide the way to check the operation of Silicon Labs.'s humidity sensors Si7021.  
 Silicon Labs.製 温湿度センサ Si7021用 GPIO直結 I2Cデータ通信サンプルプログラム by bokunimo.net  
 
-## Supported Devices 対応デバイス
+## Supported Sensor Devices 対応デバイス
 
-Supported the following sensors on such as GT-21 Modules:
+Supported the following sensors on such as GT-21 Modules:  
 
 - Silicon Labs., Si7020 (±4%)  
 - Silicon Labs., Si7021 (±3%)  
@@ -16,6 +16,16 @@ Measurement Specialties (MEAS) 社は、センサー専業のメーカー。
 2014年に TE Connectivity が買収。
 
 ![Supported Devices](pictures/gy-21.jpg)  
+
+## Supported MCUs:  
+
+- Arduino UNO  
+- ESP32 Dev Boards  
+- TTGO T-Koala  
+- etc...  
+
+![Arduino UNO Board and Si7021](pictures/uno_si7021.jpg)  
+
 
 ## ESP32 Dev Board + Si7021
 
