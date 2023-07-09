@@ -6,10 +6,13 @@ Si7021 用 I2Cデータ通信サンプルプログラム by bokunimo.net
 
 Sensors on GT-21 Modules:
 
-- Silicon Labs Si7020 (±4%)  
-- Silicon Labs Si7021 (±3%)  
-- Measurement Specialties HTU20D (±5%)  
-- Measurement Specialties HTU21D (±3%)  
+- Silicon Labs., Si7020 (±4%)  
+- Silicon Labs., Si7021 (±3%)  
+- Measurement Specialties, HTU20D (±5%)  
+- Measurement Specialties, HTU21D (±3%)  
+
+Measurement Specialties (MEAS) 社は、センサー専業のメーカー。
+2014年に TE Connectivity が買収。
 
 ![Supported Devices](pictures/gy-21.jpg)  
 
@@ -100,6 +103,14 @@ Sensors on GT-21 Modules:
 	ERROR: i2c_si7021_getTemp() Wire.write hum
 	ERROR: i2c_si7021_getTemp() Wire.write hum
 	-999.0, -999.0, 0.0
+
+## 関連情報
+
+* 温湿度センサ Si7021 と HTU21D の見分け方：  
+[https://bokunimo.net/blog/esp/3797/](https://bokunimo.net/blog/esp/3797/)
+
+* IoT Sensor Core ESP32 by Wataru KUNINO：  
+[https://git.bokunimo.com/sens/](https://git.bokunimo.com/sens/)
 
 ## GitHub Pages (This Document)
 
