@@ -1,11 +1,22 @@
-# esp32_si7021 for Si7021 and HTU21
+# esp32_si7021 for Si7020, Si7021 and HTU21D
 
 Si7021 用 I2Cデータ通信サンプルプログラム by bokunimo.net
 
-## ESP32 + Si7021
+## Supported Devices 対応デバイス
+
+- Silicon Labs Si7020 (±4%)  
+- Silicon Labs Si7021 (±3%)  
+- Measurement Specialties HTU20D (±5%)  
+- Measurement Specialties HTU21D (±3%)  
+
+![Supported Devices](pictures/gy-21.jpg)  
+
+## ESP32 Dev Board + Si7021
 
 - ESP32搭載の各種ボードに、Si7021 / HTU21 搭載の温湿度センサを直結
 - 温度と湿度をシリアルに出力
+
+![ESP32 Dev Board and Si7021](pictures/esp32_si7021.jpg)  
 
 ### 接続方法
 
@@ -19,6 +30,8 @@ Si7021 用 I2Cデータ通信サンプルプログラム by bokunimo.net
 - ESP32搭載TTGO T-Koalaに、Si7021搭載の温湿度センサを直結
 - 温度と湿度をシリアルに出力
 
+![TTGO T-Koala and Si7021](pictures/ttgo_si7021.jpg)  
+
 ### 注意
 
 - ソフトを書き込むときは Si7021 を取り外すこと。
@@ -31,8 +44,6 @@ Si7021 用 I2Cデータ通信サンプルプログラム by bokunimo.net
 |IO27  |Si7021_GND|
 |IO14  |Si7021_SCL|
 |IO12  |Si7021_SDA|
-
-![si7021.jpg](si7021.jpg)  
 
 ## シリアル出力例(Si7021 正常時)
 
