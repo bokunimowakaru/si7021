@@ -3,6 +3,12 @@
 These programs provide the way to check the operation of Silicon Labs.'s humidity sensors Si7021.  
 Silicon Labs.製 温湿度センサ Si7021用 GPIO直結 I2Cデータ通信サンプルプログラム by bokunimo.net  
 
+## Features
+
+- 開発ボードに、温湿度センサ Si7021 / HTU21 を直結 Direct Wiring to Board  
+- 温度と湿度をシリアルに出力 Measured Results Output to Serial Port  
+- 型番判定 Output the Model Number Si7020, Si7021 or HTU21D  
+
 ## Supported Sensor Devices 対応デバイス
 
 Supported the following sensors on such as GT-21 Modules:  
@@ -26,6 +32,14 @@ Measurement Specialties (MEAS) 社は、センサー専業のメーカー。
 
 ![Arduino UNO Board and Si7021](pictures/uno_si7021.jpg)  
 
+### 接続方法 Wiring for Arduino UNO
+
+|Arduino  |Si7021    |
+|---------|----------|
+|3.3V     |Si7021_VIN|
+|GND      |Si7021_GND|
+|A4 or SDA|Si7021_SDA|
+|A5 or SCL|Si7021_SCL|
 
 ## ESP32 Dev Board + Si7021
 
@@ -34,9 +48,9 @@ Measurement Specialties (MEAS) 社は、センサー専業のメーカー。
 
 ![ESP32 Dev Board and Si7021](pictures/esp32_si7021.jpg)  
 
-### 接続方法
+### 接続方法 Wiring for ESP32 Dev Board
 
-|ピン名|役割      |
+|ESP32 |Si7021    |
 |------|----------|
 |IO26  |Si7021_VIN|
 |IO27  |Si7021_GND|
@@ -53,15 +67,16 @@ Measurement Specialties (MEAS) 社は、センサー専業のメーカー。
 ### 注意
 
 - ソフトを書き込むときは Si7021 を取り外すこと。
+Please remove the Sensors on the board when writing the software.  
 
-### 接続方法
+### 接続方法 Wiring for TTGO T-Koala
 
-|ピン名|役割      |
-|------|----------|
-|IO26  |Si7021_VIN|
-|IO27  |Si7021_GND|
-|IO14  |Si7021_SCL|
-|IO12  |Si7021_SDA|
+|T-Koala|Si7021    |
+|-------|----------|
+|IO26   |Si7021_VIN|
+|IO27   |Si7021_GND|
+|IO14   |Si7021_SCL|
+|IO12   |Si7021_SDA|
 
 ## シリアル出力例(Si7021 正常時)
 
@@ -122,6 +137,9 @@ HTU21Dの判定には ID2 の先頭1バイト 0x32 を使用しています。
 
 * 温湿度センサ Si7021 と HTU21D の見分け方：  
 [https://bokunimo.net/blog/esp/3797/](https://bokunimo.net/blog/esp/3797/)  
+
+* Instagram, How to check if it's Si7021 or HTU21D:  
+[https://www.instagram.com/p/Cug5tYHLDYy/](https://www.instagram.com/p/Cug5tYHLDYy/)
 
 * How to distinguish Si7021 and HTU21D (Google Transrate):  
 [https://bokunimo-net.translate.goog/blog/esp/3797/](https://bokunimo-net.translate.goog/blog/esp/3797/?_x_tr_sl=ja&_x_tr_tl=en&_x_tr_hl=ja&_x_tr_pto=wapp)  
