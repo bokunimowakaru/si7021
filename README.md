@@ -5,9 +5,12 @@ Silicon Labs.製 温湿度センサ Si7021用 GPIO直結 I2Cデータ通信サ�
 
 ## Features
 
-- 開発ボードに、温湿度センサ Si7021 / HTU21 を直結 Direct Wiring to Board  
-- 温度と湿度をシリアルに出力 Measured Results Output to Serial Port  
-- 型番判定 Output the Model Number Si7020, Si7021 or HTU21D  
+- 開発ボードに、温湿度センサ Si7021 / HTU21 を直結  
+  Direct Wiring to Board  
+- 温度と湿度をシリアルに出力  
+  Measured Results Output to Serial Port  
+- 型番判定  
+  Output the Model Number Si7020, Si7021 or HTU21D  
 
 ## Supported Sensor Devices 対応デバイス
 
@@ -18,8 +21,7 @@ Supported the following sensors on such as GT-21 Modules:
 - Measurement Specialties, HTU20D (±5%)  
 - Measurement Specialties, HTU21D (±3%)  
 
-Measurement Specialties (MEAS) 社は、センサー専業のメーカー。
-2014年に TE Connectivity が買収。
+Measurement Specialties (MEAS) 社は、2014年に TE Connectivity が買収した、センサー専業のメーカー。
 
 ![Supported Devices](pictures/gy-21.jpg)  
 
@@ -66,8 +68,8 @@ Measurement Specialties (MEAS) 社は、センサー専業のメーカー。
 
 ### 注意
 
-- ソフトを書き込むときは Si7021 を取り外すこと。
-Please remove the Sensors on the board when writing the software.  
+- ソフトを書き込むときは Si7021 を開発ボードから取り外すこと。  
+Please disconnect the sensor module from the dev board, when writing the software.  
 
 ### 接続方法 Wiring for TTGO T-Koala
 
